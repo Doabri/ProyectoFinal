@@ -1,0 +1,36 @@
+﻿@{
+    Layout = "LayoutAdmin";
+}
+
+<div class="admin-card">
+    <h2 class="admin-title">Editar Categoría</h2>
+
+    <div class="message message-success">
+        Editando: <strong>Pasteles</strong>
+    </div>
+
+    <form class="admin-form">
+        <div class="form-group">
+            <label for="nombre" class="form-label">Nombre de la Categoría</label>
+            <input type="text" id="nombre" class="form-input" value="Pasteles" required>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" class="form-textarea" required>Deliciosos pasteles de diferentes sabores y tamaños para toda ocasión.</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="estado" class="form-label">Estado</label>
+            <select id="estado" class="form-select" required>
+                <option value="activa" selected>Activa</option>
+                <option value="inactiva">Inactiva</option>
+            </select>
+        </div>
+
+        <div class="btn-group">
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            <a href="index.html" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
+</div>

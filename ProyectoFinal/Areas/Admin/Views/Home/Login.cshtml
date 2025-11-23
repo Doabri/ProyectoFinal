@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Pastelería Dulce</title>
+    <link href="admin.css" rel="stylesheet">
+</head>
+<body class="login-page">
+    <div class="background-image">
+        <img src="panaderia.jpg" alt="Fondo Pastelería">
+    </div>
+
+    <div class="login-container">
+        <div class="login-form">
+            <div class="login-card">
+                <div class="logo">
+                    <h1>Pastelería Dulce</h1>
+                    <p>Controla tu panadería</p>
+                </div>
+                <h2 class="login-title">Iniciar Sesión</h2>
+                <form id="loginForm" class="admin-form" asp-action="Login" asp-controller="Account">
+                    <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" asp-for="Email" class="form-input" id="email" placeholder="Ingresa tu email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" asp-for="Contraseña" class="form-input" id="password" placeholder="Ingresa tu contraseña" required>
+                    </div>
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

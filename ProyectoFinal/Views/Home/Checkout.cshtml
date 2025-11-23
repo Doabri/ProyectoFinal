@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "Layout";
+}
+
+<h1>Finalizar tu Pedido</h1>
+
+<div class="checkout-container">
+    <div class="formulario-envio">
+        <div class="checkout-card">
+            <h3>Información de Contacto</h3>
+            <form>
+                <div class="form-group">
+                    <label for="nombre">Nombre completo *</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo electrónico *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono *</label>
+                    <input type="tel" id="telefono" name="telefono" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="instrucciones">Instrucciones especiales (para recoger)</label>
+                    <textarea id="instrucciones" name="instrucciones" rows="3" placeholder="Ej: Recogeré a las 4pm, el pastel es para un cumpleaños, etc."></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="resumen-checkout">
+        <div class="checkout-card">
+            <h3>Resumen del Pedido</h3>
+            <div class="items-resumen">
+                <div class="item-resumen">
+                    <span>Pastel de Chocolate Clásico x1</span>
+                    <span>$450.00</span>
+                </div>
+                <div class="item-resumen">
+                    <span>Pastel de Fresas x1</span>
+                    <span>$380.00</span>
+                </div>
+            </div>
+
+            <div class="total-resumen">
+                <div class="resumen-linea">
+                    <span>Subtotal:</span>
+                    <span>$830.00</span>
+                </div>
+                <div class="resumen-linea total">
+                    <span>Total:</span>
+                    <span>$830.00</span>
+                </div>
+            </div>
+
+            <button class="btn btn-primary btn-confirmar">
+                Confirmar Pedido
+            </button>
+        </div>
+    </div>
+</div>

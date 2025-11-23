@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "Layout";
+}
+
+<h1>Tu Carrito de Compras</h1>
+
+<div class="carrito-container">
+    <div class="lista-productos-carrito">
+        <div class="item-carrito">
+            <img src="images/pastel1.jpg" alt="Pastel de Chocolate">
+            <div class="info-item-carrito">
+                <h4>Pastel de Chocolate Clásico</h4>
+                <p>Tamaño: Chico (8 porciones)</p>
+                <p class="precio-item-carrito">$450.00</p>
+            </div>
+            <div class="controles-cantidad">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+            </div>
+            <div class="subtotal-item">$450.00</div>
+            <button class="btn-eliminar">X</button>
+        </div>
+
+        <div class="item-carrito">
+            <img src="images/pastel2.jpg" alt="Pastel de Fresa">
+            <div class="info-item-carrito">
+                <h4>Pastel de Fresas</h4>
+                <p>Tamaño: Mediano (12 porciones)</p>
+                <p class="precio-item-carrito">$380.00</p>
+            </div>
+            <div class="controles-cantidad">
+                <button>-</button>
+                <span>1</span>
+                <button>+</button>
+            </div>
+            <div class="subtotal-item">$380.00</div>
+            <button class="btn-eliminar">X</button>
+        </div>
+    </div>
+
+    <div class="resumen-pedido-carrito">
+        <h3>Resumen del Pedido</h3>
+        <div class="detalle-precios">
+            <div class="resumen-linea">
+                <span>Subtotal:</span>
+                <span>$830.00</span>
+            </div>
+            <div class="resumen-linea">
+                <span>Envío:</span>
+                <span>$80.00</span>
+            </div>
+            <div class="resumen-linea total">
+                <span>Total:</span>
+                <span>$910.00</span>
+            </div>
+        </div>
+        <div class="resumen-botones">
+            <a href="checkout.html" class="btn btn-primary">
+                Proceder al pago
+            </a>
+            <a href="index.html" class="btn btn-secondary">
+                Seguir comprando
+            </a>
+        </div>
+    </div>
+</div>

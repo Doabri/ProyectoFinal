@@ -1,0 +1,53 @@
+﻿@{
+    Layout = "LayoutAdmin";
+}
+
+<article class="admin-card">
+    <h2 class="admin-title">Editar Producto</h2>
+
+    <section class="message message-success">
+        Editando: <strong>Pastel de Chocolate</strong>
+    </section>
+
+    <form class="admin-form">
+        <section class="form-group">
+            <label for="nombre" class="form-label">Nombre del Producto</label>
+            <input type="text" id="nombre" class="form-input" value="Pastel de Chocolate" required>
+        </section>
+
+        <section class="form-group">
+            <label for="categoria" class="form-label">Categoría</label>
+            <select id="categoria" class="form-select" required>
+                <option value="pasteles" selected>Pasteles</option>
+                <option value="galletas">Galletas</option>
+                <option value="pays">Pays</option>
+                <option value="panes">Panes</option>
+                <option value="postres">Postres</option>
+            </select>
+        </section>
+
+        <section class="form-group">
+            <label for="precio" class="form-label">Precio ($)</label>
+            <input type="number" id="precio" class="form-input" value="350.00" step="0.01" min="0.1" required>
+        </section>
+
+        <section class="form-group">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" class="form-textarea" required>Delicioso pastel de chocolate con cobertura de ganache y decorado con fresas frescas.</textarea>
+        </section>
+
+        <section class="form-group">
+            <label for="imagen" class="form-label">Imagen Actual</label>
+            <div style="margin-bottom: 0.5rem;">
+                <img src="pastel-chocolate.jpg" alt="Pastel de Chocolate" class="image-preview">
+            </div>
+            <input type="file" id="imagen" class="form-file" accept="image/*">
+            <small style="color: var(--color-texto); font-size: 0.9rem;">Dejar vacío para mantener la imagen actual</small>
+        </section>
+
+        <section class="btn-group">
+            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+            <a href="index.html" class="btn btn-secondary">Cancelar</a>
+        </section>
+    </form>
+</article>

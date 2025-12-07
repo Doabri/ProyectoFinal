@@ -11,9 +11,11 @@ public partial class Pastel
 
     public string? Descripcion { get; set; }
 
-    public string? Detalles { get; set; }
+    public string? Ingredientes { get; set; }
 
-    public decimal? Precio { get; set; }
+    public decimal Precio { get; set; }
 
-    public int? IdCategoria { get; set; }
+    public int IdCategoria { get; set; }
+
+    public virtual Categoria IdCategoriaNavigation { get; set; } = null!;
 }

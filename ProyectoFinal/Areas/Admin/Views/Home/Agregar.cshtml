@@ -1,47 +1,48 @@
-﻿@{
+﻿@model ProyectoFinal.Areas.Admin.Models.ViewModels.AgregarViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
     Layout = "LayoutAdmin";
 }
 
 <div class="admin-card">
     <h2 class="admin-title">Agregar Nuevo Producto</h2>
 
-    <form class="admin-form">
+    <form class="admin-form" method="post" asp-action="Agregar" asp-controller="Home" enctype="multipart/form-data">
         <div class="form-group">
             <label for="nombre" class="form-label">Nombre del Producto</label>
-            <input type="text" id="nombre" class="form-input" placeholder="Ej: Pastel de Chocolate" required>
+            <input asp-for="Agregar.Nombre" type="text" id="nombre" class="form-input" placeholder="Ej: Pastel de Chocolate" required>
         </div>
 
         <div class="form-group">
             <label for="categoria" class="form-label">Categoría</label>
-            <select id="categoria" class="form-select" required>
+            <select asp-for="Agregar.PastelCategoria" id="categoria" class="form-select" required>
                 <option value="">Seleccionar categoría...</option>
-                <option value="pasteles">Pasteles</option>
-                <option value="galletas">Galletas</option>
-                <option value="pays">Pays</option>
-                <option value="panes">Panes</option>
-                <option value="postres">Postres</option>
+                @foreach (var cat in Model.Categorias)
+                {
+                    <option value="@cat.Id">@cat.Nombre</option>
+                }
             </select>
         </div>
 
         <div class="form-group">
             <label for="precio" class="form-label">Precio ($)</label>
-            <input type="number" id="precio" class="form-input" step="0.01" min="0.1" placeholder="Ej: 350.00" required>
+            <input asp-for="Agregar.Precio" type="number" id="precio" class="form-input" step="0.01" min="0.1" placeholder="Ej: 350.00" required>
         </div>
 
         <div class="form-group">
             <label for="descripcion" class="form-label">Descripción</label>
-            <textarea id="descripcion" class="form-textarea" placeholder="Descripción del producto..." required></textarea>
+            <textarea asp-for="Agregar.Descripcion" id="descripcion" class="form-textarea" placeholder="Descripción del producto..." required></textarea>
         </div>
 
         <div class="form-group">
             <label for="imagen" class="form-label">Imagen</label>
-            <input type="file" id="imagen" class="form-file" accept="image/*" required>
+            <input asp-for="Agregar.Imagen" type="file" id="imagen" class="form-file" accept="image/jpg" required>
             <img id="imagePreview" class="image-preview" src="#" alt="Vista previa de la imagen" style="display: none;">
         </div>
 
         <div class="btn-group">
             <button type="submit" class="btn btn-success">Agregar Producto</button>
-            <a href="index.html" class="btn btn-secondary">Cancelar</a>
+            <a href="~/Admin/Home/Index" class="btn btn-secondary">Cancelar</a>
         </div>
     </form>
 </div>

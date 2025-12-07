@@ -69,6 +69,21 @@ body {
             background-color: var(--color-secundario);
         }
 
+.boton-logout {
+    all: unset;
+    cursor: pointer;
+    color: var(--color-contraste);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-weight: 500;
+}
+
+    .boton-logout:hover {
+        background-color: var(--color-secundario);
+    }
+
+
 .admin-main {
     max-width: 1200px;
     margin: 2rem auto;

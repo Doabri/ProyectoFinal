@@ -26,7 +26,7 @@ public partial class PasteleriaProyectoContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;user=root;password=root;database=PasteleriaProyecto;port=3306", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql"));
+        => optionsBuilder.UseMySql("server=localhost;user=root;password=root;port=3306;database=PasteleriaProyecto", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.36-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -40,7 +40,6 @@ public partial class PasteleriaProyectoContext : DbContext
 
             entity.ToTable("categoria");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Nombre).HasMaxLength(20);
         });
 
@@ -50,11 +49,17 @@ public partial class PasteleriaProyectoContext : DbContext
 
             entity.ToTable("pastel");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.HasIndex(e => e.IdCategoria, "fkpastelcategoria");
+
             entity.Property(e => e.Descripcion).HasMaxLength(70);
-            entity.Property(e => e.Detalles).HasMaxLength(200);
+            entity.Property(e => e.Ingredientes).HasMaxLength(200);
             entity.Property(e => e.Nombre).HasMaxLength(50);
             entity.Property(e => e.Precio).HasPrecision(10);
+
+            entity.HasOne(d => d.IdCategoriaNavigation).WithMany(p => p.Pastel)
+                .HasForeignKey(d => d.IdCategoria)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fkpastelcategoria");
         });
 
         modelBuilder.Entity<Pedidos>(entity =>
@@ -63,7 +68,6 @@ public partial class PasteleriaProyectoContext : DbContext
 
             entity.ToTable("pedidos");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.CodigoUnico).HasMaxLength(20);
             entity.Property(e => e.Correo).HasMaxLength(50);
             entity.Property(e => e.Instrucciones).HasMaxLength(150);
@@ -75,8 +79,7 @@ public partial class PasteleriaProyectoContext : DbContext
 
             entity.ToTable("usuarioadmin");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.Contrasena).HasMaxLength(25);
+            entity.Property(e => e.Contrasena).HasMaxLength(200);
             entity.Property(e => e.Nickname).HasMaxLength(60);
         });
 

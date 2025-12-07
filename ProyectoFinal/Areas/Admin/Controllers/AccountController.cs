@@ -22,38 +22,45 @@ namespace ProyectoFinal.Areas.Admin.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Login(LoginViewModel model)
-        //{
-        //    var admin = adminService.Login(model);
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            var admin = adminService.Login(model);
 
-        //    if (admin == null)
-        //    {
-        //        ModelState.AddModelError("", "Contraseña o Nickname incorrectos");
-        //        return View(model);
-        //    }
-        //    else if(admin.Nickname!=null)
-        //    {
-        //        var claims = new List<Claim>
-        //        {
-        //            new Claim(ClaimTypes.NameIdentifier,
-        //            admin.Id.ToString()),
-        //            new Claim(ClaimTypes.Name,
-        //                admin.Nickname)
-        //        };
+            if (admin == null)
+            {
+                ModelState.AddModelError("", "Contraseña o Nickname incorrectos");
+                return View(model);
+            }
+            else if (admin.Nickname != null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier,
+                    admin.Id.ToString()),
+                    new Claim(ClaimTypes.Name,
+                        admin.Nickname)
+                };
 
-        //        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-        //        var principal = new ClaimsPrincipal(identity);
+                var principal = new ClaimsPrincipal(identity);
 
-        //        await HttpContext.SignInAsync(principal);
+                await HttpContext.SignInAsync(principal);
 
-        //        return RedirectToAction("Index", "Home", new { area = "Admin" });
-        //    }
-        //    else
-        //    {
-        //        return View(model);
-        //    }
-        //}
+                return RedirectToAction("Index", "Home", new { area = "Admin" });
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login", "Account");
+        }
     }
 }

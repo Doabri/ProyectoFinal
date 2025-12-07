@@ -17,10 +17,15 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddDbContext<PasteleriaProyectoContext>();
 
-builder.Services.AddScoped(typeof(Repository<>));
+builder.Services.AddScoped(typeof(Repository<>), typeof(Repository<>));
 builder.Services.AddScoped<AdminService>();
+builder.Services.AddScoped<CategoriaService>();
 
 var app = builder.Build();
+
+app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -31,7 +36,5 @@ app.MapControllerRoute(
 );
 
 app.MapDefaultControllerRoute();
-
-app.UseStaticFiles();
 
 app.Run();

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ProyectoFinal.Areas.Admin.Models.ViewModels.IndexViewModel
+@{
     Layout = "LayoutAdmin";
 }
 
@@ -10,7 +11,7 @@
     </div>
 
     <div class="btn-group">
-        <a href="agregar.html" class="btn btn-primary">Agregar Nuevo Producto</a>
+        <a href="~/Admin/Home/Agregar" class="btn btn-primary">Agregar Nuevo Producto</a>
     </div>
 
     <table class="products-table">
@@ -19,41 +20,22 @@
                 <th>Producto</th>
                 <th>Categoría</th>
                 <th>Precio</th>
-                <th>Estado</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Pastel de Chocolate</td>
-                <td>Pasteles</td>
-                <td>$350.00</td>
-                <td>Disponible</td>
-                <td class="actions-cell">
-                    <a href="editar.html" class="action-btn btn-secondary">Editar</a>
-                    <a href="eliminar.html" class="action-btn btn-danger">Eliminar</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Galletas de Mantequilla</td>
-                <td>Galletas</td>
-                <td>$120.00</td>
-                <td>Disponible</td>
-                <td class="actions-cell">
-                    <a href="editar.html" class="action-btn btn-secondary">Editar</a>
-                    <a href="eliminar.html" class="action-btn btn-danger">Eliminar</a>
-                </td>
-            </tr>
-            <tr>
-                <td>Pay de Queso</td>
-                <td>Pays</td>
-                <td>$280.00</td>
-                <td>Agotado</td>
-                <td class="actions-cell">
-                    <a href="editar.html" class="action-btn btn-secondary">Editar</a>
-                    <a href="eliminar.html" class="action-btn btn-danger">Eliminar</a>
-                </td>
-            </tr>
+            @foreach (var pastel in Model.Pasteles)
+            {
+                <tr>
+                    <td>@pastel.Nombre</td>
+                    <td>@pastel.Categoria</td>
+                    <td>@pastel.Precio</td>
+                    <td class="actions-cell">
+                        <a href="~/Admin/Home/Editar/@pastel.Id" class="action-btn btn-secondary">Editar</a>
+                        <a href="~/Admin/Home/Eliminar/@pastel.Id" class="action-btn btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

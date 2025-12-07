@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model ProyectoFinal.Models.ViewModels.LoginViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -19,14 +22,14 @@
                     <p>Controla tu panadería</p>
                 </div>
                 <h2 class="login-title">Iniciar Sesión</h2>
-                <form id="loginForm" class="admin-form" asp-action="Login" asp-controller="Account">
+                <form method="post" id="loginForm" class="admin-form" asp-action="Login" asp-controller="Account">
                     <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" asp-for="Email" class="form-input" id="email" placeholder="Ingresa tu email" required>
+                        <label for="email" class="form-label">Nickname</label>
+                        <input type="text" asp-for="Nickname" class="form-input" id="email" placeholder="Ingresa tu Nickname" required>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Contraseña</label>
-                        <input type="password" asp-for="Contraseña" class="form-input" id="password" placeholder="Ingresa tu contraseña" required>
+                        <input type="password" asp-for="Contrasena" class="form-input" id="password" placeholder="Ingresa tu contraseña" required>
                     </div>
                     <div class="btn-group">
                         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>

@@ -20,7 +20,7 @@ public partial class PasteleriaProyectoContext : DbContext
 
     public virtual DbSet<Pastel> Pastel { get; set; }
 
-    public virtual DbSet<Pedidos> Pedidos { get; set; }
+    public virtual DbSet<Pedido> Pedidos { get; set; }
 
     public virtual DbSet<Usuarioadmin> Usuarioadmin { get; set; }
 
@@ -52,7 +52,7 @@ public partial class PasteleriaProyectoContext : DbContext
             entity.HasIndex(e => e.IdCategoria, "fkpastelcategoria");
 
             entity.Property(e => e.Descripcion).HasMaxLength(70);
-            entity.Property(e => e.Ingredientes).HasMaxLength(200);
+            entity.Property(e => e.Ingrediente).HasMaxLength(200);
             entity.Property(e => e.Nombre).HasMaxLength(50);
             entity.Property(e => e.Precio).HasPrecision(10);
 
@@ -62,13 +62,13 @@ public partial class PasteleriaProyectoContext : DbContext
                 .HasConstraintName("fkpastelcategoria");
         });
 
-        modelBuilder.Entity<Pedidos>(entity =>
+        modelBuilder.Entity<Pedido>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PRIMARY");
 
             entity.ToTable("pedidos");
 
-            entity.Property(e => e.CodigoUnico).HasMaxLength(20);
+            entity.Property(e => e.Id).HasMaxLength(20);
             entity.Property(e => e.Correo).HasMaxLength(50);
             entity.Property(e => e.Instrucciones).HasMaxLength(150);
         });

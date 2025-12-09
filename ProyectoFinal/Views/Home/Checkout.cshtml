@@ -1,65 +1,81 @@
-﻿@{
+﻿@model ProyectoFinal.Models.ViewModels.UsuarioViewModel.CheckOutViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
     Layout = "Layout";
 }
 
 <h1>Finalizar tu Pedido</h1>
 
-<div class="checkout-container">
-    <div class="formulario-envio">
-        <div class="checkout-card">
-            <h3>Información de Contacto</h3>
-            <form>
+<form asp-action="FinalizarPedido" asp-controller="Home" method="post">
+
+    <div class="checkout-container">
+
+        <div class="formulario-envio">
+            <div class="checkout-card">
+                <h3>Información de Contacto</h3>
+
                 <div class="form-group">
                     <label for="nombre">Nombre completo *</label>
-                    <input type="text" id="nombre" name="nombre" required>
+                    <input asp-for="NombreCliente" type="text" id="nombre" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Correo electrónico *</label>
-                    <input type="email" id="email" name="email" required>
+                    <input asp-for="Correo" type="email" id="email" required>
                 </div>
 
                 <div class="form-group">
                     <label for="telefono">Teléfono *</label>
-                    <input type="tel" id="telefono" name="telefono" required>
+                    <input asp-for="Telefono" type="tel" id="telefono" required>
                 </div>
 
                 <div class="form-group">
                     <label for="instrucciones">Instrucciones especiales (para recoger)</label>
-                    <textarea id="instrucciones" name="instrucciones" rows="3" placeholder="Ej: Recogeré a las 4pm, el pastel es para un cumpleaños, etc."></textarea>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="resumen-checkout">
-        <div class="checkout-card">
-            <h3>Resumen del Pedido</h3>
-            <div class="items-resumen">
-                <div class="item-resumen">
-                    <span>Pastel de Chocolate Clásico x1</span>
-                    <span>$450.00</span>
-                </div>
-                <div class="item-resumen">
-                    <span>Pastel de Fresas x1</span>
-                    <span>$380.00</span>
+                    <textarea asp-for="Instrucciones" id="instrucciones" rows="3" placeholder="Ej: Recogeré a las 4pm, el pastel es para un cumpleaños, etc."></textarea>
                 </div>
             </div>
+            @Html.ValidationSummary()
+        </div>
 
-            <div class="total-resumen">
-                <div class="resumen-linea">
-                    <span>Subtotal:</span>
-                    <span>$830.00</span>
+        <div class="resumen-checkout">
+            <div class="checkout-card">
+
+                <h3>Resumen del Pedido</h3>
+
+                <div class="items-resumen">
+                    @foreach (var pastel in Model.ListaCarritoPedidos)
+                    {
+                        <div class="item-resumen">
+                            <span>@pastel.Nombre x@(pastel.Cantidad)</span>
+                            <span>$@(pastel.PrecioUnitario* pastel.Cantidad)</span>
+                        </div>
+                    }
                 </div>
-                <div class="resumen-linea total">
-                    <span>Total:</span>
-                    <span>$830.00</span>
+
+                <div class="total-resumen">
+                    <div class="resumen-linea">
+                        <span>Subtotal:</span>
+                        <span>$@Model.Subtotal</span>
+                    </div>
+                    <div class="resumen-linea">
+                        <span>Envío:</span>
+                        <span>$@Model.Envio</span>
+                    </div>
+                    <div class="resumen-linea total">
+                        <span>Total:</span>
+                        <span>$@Model.Total</span>
+                    </div>
                 </div>
+
+                <input type="hidden" asp-for="Subtotal"/>
+                <input type="hidden" asp-for="Total"/>
+
+                <button type="submit" class="btn btn-primary btn-confirmar">
+                    Confirmar Pedido
+                </button>
             </div>
-
-            <button class="btn btn-primary btn-confirmar">
-                Confirmar Pedido
-            </button>
         </div>
     </div>
-</div>
+</form>

@@ -1,48 +1,55 @@
-﻿@{
+﻿@model ProyectoFinal.Models.ViewModels.UsuarioViewModel.DetallesPastelUsuarioViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
     Layout = "Layout";
 }
 
-<a href="index.html" class="btn" style="margin-bottom: 20px;">← Volver al catálogo</a>
+<a href="~/Home/Index" class="btn" style="margin-bottom: 20px;">← Volver al catálogo</a>
 
-<div class="detalle-producto">
-    <div class="imagen-producto">
-        <img src="images/pastel1.jpg" alt="Pastel de Chocolate Clásico">
+<form asp-action="AgregarCarrito" asp-controller="Home" method="post">
+
+    <input type="hidden" name="pastelId" value="@Model.Id" />
+
+    <div class="detalle-producto">
+        <div class="imagen-producto">
+            <img src="~/images/pastel/@(Model.Id).jpg" alt="@Model.Nombre">
+        </div>
+
+        <div class="info-producto">
+            <h1>@Model.Nombre</h1>
+            <p class="precio">$@(Model.PrecioBase)</p>
+            <p class="descripcion-detalle">
+                @Model.Descripcion
+            </p>
+
+            <div class="ingredientes">
+                <h3>Ingredientes:</h3>
+                <ul>
+                    @foreach (var ing in Model.Ingredientes)
+                    {
+                        <li>@ing</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="tamaño">
+                <h3>Tamaño:</h3>
+
+                <select asp-for="TamanoSeleccionadoId"
+                        asp-items="@(new SelectList(Model.ListaTamaños, "Id", "Texto"))"
+                        class="form-control">
+                </select>
+
+
+            </div>
+
+            <div class="acciones">
+                <button type="submit" class="btn btn-primary" style="font-size: 18px; padding: 15px 30px;">
+                    🛒 Agregar al carrito
+                </button>
+            </div>
+        </div>
     </div>
-
-    <div class="info-producto">
-        <h1>Pastel de Chocolate Clásico</h1>
-        <p class="precio">$450.00</p>
-        <p class="descripcion-detalle">
-            Nuestro pastel de chocolate clásico está elaborado con el mejor cacao belga,
-            relleno de ganache de chocolate y cubierto con un buttercream suave y cremoso.
-            Perfecto para cualquier celebración.
-        </p>
-
-        <div class="ingredientes">
-            <h3>Ingredientes:</h3>
-            <ul>
-                <li>Harina de trigo</li>
-                <li>Cacao belga premium</li>
-                <li>Mantequilla</li>
-                <li>Huevos frescos</li>
-                <li>Crema para batir</li>
-                <li>Chocolate semiamargo</li>
-            </ul>
-        </div>
-
-        <div class="tamaño">
-            <h3>Tamaño:</h3>
-            <select>
-                <option>Chico (8 porciones) - $450.00</option>
-                <option>Mediano (12 porciones) - $650.00</option>
-                <option>Grande (16 porciones) - $850.00</option>
-            </select>
-        </div>
-
-        <div class="acciones">
-            <button class="btn btn-primary" style="font-size: 18px; padding: 15px 30px;">
-                🛒 Agregar al carrito
-            </button>
-        </div>
-    </div>
-</div>
+</form>

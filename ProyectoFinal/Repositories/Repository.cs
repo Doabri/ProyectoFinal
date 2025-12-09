@@ -1,14 +1,15 @@
-﻿using ProyectoFinal.Models.Entities;
+﻿
+using ProyectoFinal.Models.Entities;
 
 namespace ProyectoFinal.Repositories
 {
     public class Repository<T> where T : class
     {
-        public Repository(PasteleriaProyectoContext context)
+        public Repository(ProyectoPasteleriaContext context)
         {
             Context = context;
         }
-        public PasteleriaProyectoContext Context { get; }
+        public ProyectoPasteleriaContext Context { get; }
 
         public virtual T? Get(object id)
         {

@@ -7,7 +7,7 @@ public partial class Usuarioadmin
 {
     public int Id { get; set; }
 
-    public string? Nickname { get; set; }
+    public string Nickname { get; set; } = null!;
 
-    public string? Contrasena { get; set; }
+    public string Contrasena { get; set; } = null!;
 }

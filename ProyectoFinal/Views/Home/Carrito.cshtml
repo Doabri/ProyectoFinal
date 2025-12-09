@@ -1,67 +1,74 @@
-﻿@{
+﻿@model ProyectoFinal.Models.ViewModels.UsuarioViewModel.CarritoViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
     Layout = "Layout";
 }
 
 <h1>Tu Carrito de Compras</h1>
 
-<div class="carrito-container">
-    <div class="lista-productos-carrito">
-        <div class="item-carrito">
-            <img src="images/pastel1.jpg" alt="Pastel de Chocolate">
-            <div class="info-item-carrito">
-                <h4>Pastel de Chocolate Clásico</h4>
-                <p>Tamaño: Chico (8 porciones)</p>
-                <p class="precio-item-carrito">$450.00</p>
-            </div>
-            <div class="controles-cantidad">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-            <div class="subtotal-item">$450.00</div>
-            <button class="btn-eliminar">X</button>
+@if (!Model.ListaPedidos.Any())
+{
+    <p>Tu carrito está vacío.</p>
+}
+else
+{
+    <div class="carrito-container">
+        <div class="lista-productos-carrito">
+
+            @foreach (var pastel in Model.ListaPedidos)
+            {
+                <div class="item-carrito">
+                    <img src="~/images/pastel/@(pastel.IdPastel).jpg" alt=@pastel.Nombre">
+                    <div class="info-item-carrito">
+                        <h4>@pastel.Nombre</h4>
+                        <p>Tamaño: @pastel.Tamano</p>
+                        <p class="precio-item-carrito">$@pastel.PrecioUnitario</p>
+                    </div>
+                    <div class="controles-cantidad">
+                        <a asp-action="RestarCantidad" asp-route-id="@pastel.CarritoId" class="btn">-</a>
+                        <span>@pastel.Cantidad</span>
+                        <a asp-action="SumarCantidad" asp-route-id="@pastel.CarritoId" class="btn">+</a>
+                    </div>
+                    <div class="subtotal-item">$@pastel.Subtotal</div>
+                    <a asp-action="EliminarDelCarrito"
+                       asp-controller="Home"
+                       asp-route-id="@pastel.CarritoId"
+                       class="btn-eliminar">
+                        X
+                    </a>
+                </div>
+
+            }
+
         </div>
 
-        <div class="item-carrito">
-            <img src="images/pastel2.jpg" alt="Pastel de Fresa">
-            <div class="info-item-carrito">
-                <h4>Pastel de Fresas</h4>
-                <p>Tamaño: Mediano (12 porciones)</p>
-                <p class="precio-item-carrito">$380.00</p>
-            </div>
-            <div class="controles-cantidad">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-            </div>
-            <div class="subtotal-item">$380.00</div>
-            <button class="btn-eliminar">X</button>
-        </div>
-    </div>
+        <div class="resumen-pedido-carrito">
+            <h3>Resumen del Pedido</h3>
 
-    <div class="resumen-pedido-carrito">
-        <h3>Resumen del Pedido</h3>
-        <div class="detalle-precios">
-            <div class="resumen-linea">
-                <span>Subtotal:</span>
-                <span>$830.00</span>
+            <div class="detalle-precios">
+                <div class="resumen-linea">
+                    <span>Subtotal:</span>
+                    <span>$@Model.Subtotal</span>
+                </div>
+                <div class="resumen-linea">
+                    <span>Envío:</span>
+                    <span>$@Model.Envio</span>
+                </div>
+                <div class="resumen-linea total">
+                    <span>Total:</span>
+                    <span>$@Model.Total</span>
+                </div>
             </div>
-            <div class="resumen-linea">
-                <span>Envío:</span>
-                <span>$80.00</span>
+            <div class="resumen-botones">
+                <a href="~/Home/Checkout/" class="btn btn-primary">
+                    Proceder al pago
+                </a>
+                <a href="~/Home/Index" class="btn btn-secondary">
+                    Seguir comprando
+                </a>
             </div>
-            <div class="resumen-linea total">
-                <span>Total:</span>
-                <span>$910.00</span>
-            </div>
-        </div>
-        <div class="resumen-botones">
-            <a href="checkout.html" class="btn btn-primary">
-                Proceder al pago
-            </a>
-            <a href="index.html" class="btn btn-secondary">
-                Seguir comprando
-            </a>
         </div>
     </div>
-</div>
+}

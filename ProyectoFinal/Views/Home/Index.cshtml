@@ -1,4 +1,8 @@
-﻿@{
+﻿@model ProyectoFinal.Models.ViewModels.UsuarioViewModel.IndexUsuarioViewModel
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
     Layout = "Layout";
 }
 
@@ -8,63 +12,40 @@
 
 <div class="filtros">
     <h3>Filtrar por categoría:</h3>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       asp-route-id="0"
+       class="categoria-btn @(Model.CategoriaSeleccionada == 0 ? "active" : "")">
+        Todos
+    </a>
+
     <div class="categorias">
-        <button class="categoria-btn active">Todos</button>
-        <button class="categoria-btn">Cumpleaños</button>
-        <button class="categoria-btn">Bodas</button>
-        <button class="categoria-btn">Chocolate</button>
-        <button class="categoria-btn">Frutas</button>
+        @foreach (var categoria in Model.ListaCategorias)
+        {
+            <a asp-controller="Home"
+               asp-action="Index"
+               asp-route-id="@categoria.Id"
+               class="categoria-btn @(Model.CategoriaSeleccionada == categoria.Id ? "active" : "")">
+                @categoria.Nombre
+            </a>
+        }
+
     </div>
 </div>
 
 <div class="catalogo">
     <div class="productos">
-        <div class="producto">
-            <img src="images/pastel1.jpg" alt="Pastel de Chocolate">
-            <h3>Pastel de Chocolate Clásico</h3>
-            <p class="descripcion">Delicioso pastel de chocolate con buttercream</p>
-            <p class="precio">$450.00</p>
-            <a href="detalles.html" class="btn">Ver detalles</a>
-        </div>
+        @foreach (var pastel in Model.ListaPasteles)
+        {
+            <div class="producto">
+                <img src="~/images/pastel/@(pastel.Id).jpg" alt="@pastel.Nombre">
+                <h3>@pastel.Nombre</h3>
+                <p class="descripcion">@pastel.Descripcion</p>
+                <p class="precio">$@(pastel.Precio)</p>
+                <a href="~/Home/Detalles/@(pastel.Id)" class="btn">Ver detalles</a>
+            </div>
+        }
 
-        <div class="producto">
-            <img src="images/pastel2.jpg" alt="Pastel de Fresa">
-            <h3>Pastel de Fresas</h3>
-            <p class="descripcion">Fresas frescas con crema batida</p>
-            <p class="precio">$380.00</p>
-            <a href="detalles.html" class="btn">Ver detalles</a>
-        </div>
-
-        <div class="producto">
-            <img src="images/pastel3.jpg" alt="Pastel de Bodas">
-            <h3>Pastel Elegante para Bodas</h3>
-            <p class="descripcion">Diseño sofisticado para tu día especial</p>
-            <p class="precio">$850.00</p>
-            <a href="detalles.html" class="btn">Ver detalles</a>
-        </div>
-
-        <div class="producto">
-            <img src="images/pastel4.jpg" alt="Pastel de Vainilla">
-            <h3>Pastel de Vainilla Francesa</h3>
-            <p class="descripcion">Vainilla premium con frutos rojos</p>
-            <p class="precio">$420.00</p>
-            <a href="detalles.html" class="btn">Ver detalles</a>
-        </div>
-
-        <div class="producto">
-            <img src="images/pastel5.jpg" alt="Pastel de Zanahoria">
-            <h3>Pastel de Zanahoria</h3>
-            <p class="descripcion">Especiado con nueces y cream cheese</p>
-            <p class="precio">$390.00</p>
-            <a href="detalles.html" class="btn">Ver detalles</a>
-        </div>
-
-        <div class="producto">
-            <img src="images/pastel6.jpg" alt="Pastel de Limón">
-            <h3>Pastel de Limón</h3>
-            <p class="descripcion">Refrescante sabor cítrico con merengue</p>
-            <p class="precio">$360.00</p>
-            <a href="detalles.html" class="btn">Ver detalles</a>
-        </div>
     </div>
 </div>

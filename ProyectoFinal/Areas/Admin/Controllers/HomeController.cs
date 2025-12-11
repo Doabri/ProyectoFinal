@@ -66,45 +66,38 @@ namespace ProyectoFinal.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+
         public IActionResult Editar(int id)
         {
-            var categorias = categoriaService.GetCategorias();
-            if (categorias != null)
+            var pastel = adminService.GetByEditar(id);
+
+            if (pastel == null)
+                return NotFound();
+
+            var vm = new EditarViewModel
             {
-                var model = new EditarViewModel
-                {
-                    Categorias = categorias,
-                    EditarPastel = adminService.GetByEditar(id)
-                };
-                return View(model);
-            }
-            return View();
+                EditarPastel = pastel,
+                Categorias = categoriaService.GetCategorias()
+            };
+
+            return View(vm);
         }
+
 
         [HttpPost]
         public IActionResult Editar(EditarViewModel vm)
         {
             if (!ModelState.IsValid)
             {
-                vm.Categorias = categoriaService.GetCategorias() ?? new List<Categoria>();
+                vm.Categorias = categoriaService.GetCategorias();
                 return View(vm);
             }
 
-            var entidad = new EditarModel
-            {
-                Id = vm.EditarPastel.Id,
-                Nombre = vm.EditarPastel.Nombre,
-                Precio = vm.EditarPastel.Precio,
-                Descripcion = vm.EditarPastel.Descripcion,
-                Ingredientes = vm.EditarPastel.Ingredientes,
-                PastelCategoria = vm.EditarPastel.PastelCategoria,
-                Imagen = vm.EditarPastel.Imagen
-            };
-
-            adminService.EditarPastel(entidad);
+            adminService.EditarPastel(vm.EditarPastel);
 
             return RedirectToAction("Index");
         }
+
 
         public IActionResult Eliminar(int id)
         {

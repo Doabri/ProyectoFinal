@@ -39,7 +39,7 @@
         @foreach (var pastel in Model.ListaPasteles)
         {
             <div class="producto">
-                <img src="~/images/pastel/@(pastel.Id).jpg" alt="@pastel.Nombre">
+                <img src="~/pasteles/@(pastel.Id).jpg" alt="@pastel.Nombre">
                 <h3>@pastel.Nombre</h3>
                 <p class="descripcion">@pastel.Descripcion</p>
                 <p class="precio">$@(pastel.Precio)</p>

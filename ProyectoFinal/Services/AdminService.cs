@@ -13,12 +13,14 @@ namespace ProyectoFinal.Services
         private readonly Repository<Pastel> repoPastel;
         private readonly Repository<Categoria> repoCategoria;
         private readonly IWebHostEnvironment hostEnvironment;
+        private readonly Repository<Ingrediente> repoIngrediente;
 
-        public AdminService(Repository<Usuarioadmin> repoUser, Repository<Pastel> repoPastel,Repository<Categoria> repoCategoria, IWebHostEnvironment hostEnvironment)
+        public AdminService(Repository<Usuarioadmin> repoUser, Repository<Pastel> repoPastel,Repository<Categoria> repoCategoria, Repository<Ingrediente> repoIngrediente, IWebHostEnvironment hostEnvironment)
         {
             this.repoUser = repoUser;
             this.repoPastel = repoPastel;
             this.repoCategoria = repoCategoria;
+            this.repoIngrediente = repoIngrediente;
             this.hostEnvironment = hostEnvironment;
         }
 
@@ -50,15 +52,29 @@ namespace ProyectoFinal.Services
             {
                 Nombre = model.Nombre,
                 Descripcion = model.Descripcion,
-                Ingredientes = model.Ingredientes,
                 Precio = model.Precio,
                 IdCategoria = model.PastelCategoria
             };
-
             repoPastel.Insert(entidad);
+
+            if (model.Ingredientes != null)
+            {
+                foreach (var ing in model.Ingredientes)
+                {
+                    if (!string.IsNullOrWhiteSpace(ing))
+                    {
+                        var ingrediente = new Ingrediente
+                        {
+                            Nombre = ing.Trim(),
+                            IdPastel = entidad.Id
+                        };
+                        repoIngrediente.Insert(ingrediente);
+                    }
+                }
+            }
             AgregarImagen(model.Imagen, entidad.Id);
-            
         }
+
 
         public void AgregarImagen(IFormFile archivo, int idPastel)
         {
@@ -89,39 +105,70 @@ namespace ProyectoFinal.Services
 
         public EditarModel GetByEditar(int id)
         {
-            var entidad = repoPastel.Get(id);
-            if (entidad == null) throw new ArgumentException("Pastel no encotrado.");
+            var entidad = repoPastel.GetAll().AsQueryable()
+                .Include(x => x.Ingrediente)
+                .FirstOrDefault(x => x.Id == id);
+
+            if (entidad == null)
+                throw new ArgumentException("Pastel no encontrado.");
+
+            string ingredientesTexto = string.Join(", ", entidad.Ingrediente.Select(i => i.Nombre));
 
             return new EditarModel
             {
                 Id = entidad.Id,
-                Nombre = entidad.Nombre??"",
-                Descripcion = entidad.Descripcion??"",
+                Nombre = entidad.Nombre,
+                Descripcion = entidad.Descripcion ?? "",
                 Precio = entidad.Precio,
                 PastelCategoria = entidad.IdCategoria,
-                Ingredientes = entidad.Ingredientes ?? "",
+                Ingredientes = ingredientesTexto
             };
         }
 
         public void EditarPastel(EditarModel m)
         {
-            var entidad = repoPastel.Get(m.Id);
-            if (entidad == null) throw new ArgumentException("Pastel no encontrado.");
+            var entidad = repoPastel.GetAll().AsQueryable()
+                .Include(x => x.Ingrediente)
+                .FirstOrDefault(x => x.Id == m.Id);
+
+            if (entidad == null)
+                throw new ArgumentException("Pastel no encontrado.");
 
             entidad.Nombre = m.Nombre;
-            entidad.Id = m.Id;
             entidad.Descripcion = m.Descripcion;
             entidad.Precio = m.Precio;
             entidad.IdCategoria = m.PastelCategoria;
-            entidad.Ingredientes = m.Ingredientes;
 
             repoPastel.Update(entidad);
 
-            if (m.Imagen != null)
+
+            entidad.Ingrediente.Clear();
+
+            if (!string.IsNullOrWhiteSpace(m.Ingredientes))
+            {
+                var lista = m.Ingredientes
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(i => i.Trim())
+                    .ToList();
+
+                foreach (var ing in lista)
+                {
+                    entidad.Ingrediente.Add(new Ingrediente
+                    {
+                        Nombre = ing,
+                        IdPastel = entidad.Id
+                    });
+                }
+            }
+
+            repoPastel.Update(entidad);
+
+            if (m.Imagen != null && m.Imagen.Length > 0)
             {
                 AgregarImagen(m.Imagen, entidad.Id);
             }
         }
+
 
         public EliminarViewModel GetByEliminar(int id)
         {
@@ -138,9 +185,14 @@ namespace ProyectoFinal.Services
 
         public void EliminarPastel(EliminarViewModel m)
         {
-            var entidad = repoPastel.Get(m.Id);
-            if (entidad == null) throw new ArgumentException("Pastel no encotrado.");
-            repoPastel.Delete(m.Id);
+            var entidad = repoPastel.GetAll().AsQueryable()
+                .Include(x => x.Ingrediente)
+                .FirstOrDefault(x => x.Id == m.Id);
+
+            if (entidad == null)
+                throw new ArgumentException("Pastel no encontrado.");
+
+            repoPastel.Delete(entidad.Id);
 
             var rutaImagen = Path.Combine(hostEnvironment.WebRootPath, "pasteles", $"{m.Id}.jpg");
             if (File.Exists(rutaImagen))

@@ -20,7 +20,7 @@ else
             @foreach (var pastel in Model.ListaPedidos)
             {
                 <div class="item-carrito">
-                    <img src="~/images/pastel/@(pastel.IdPastel).jpg" alt=@pastel.Nombre">
+                    <img src="~/pasteles/@(pastel.IdPastel).jpg" alt="@pastel.Nombre" />
                     <div class="info-item-carrito">
                         <h4>@pastel.Nombre</h4>
                         <p>Tamaño: @pastel.Tamano</p>

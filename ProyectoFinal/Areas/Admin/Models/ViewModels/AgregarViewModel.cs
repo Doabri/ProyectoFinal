@@ -14,7 +14,7 @@ namespace ProyectoFinal.Areas.Admin.Models.ViewModels
         public decimal Precio { get; set; }
         public string Descripcion { get; set; } = null!;
         public IFormFile Imagen { get; set; } = null!;
-        public string? Ingredientes { get; set; }
+        public List<string>? Ingredientes { get; set; }
         public int PastelCategoria {  get; set; }
     }
 }

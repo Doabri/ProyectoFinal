@@ -13,14 +13,14 @@
 <div class="filtros">
     <h3>Filtrar por categoría:</h3>
 
-    <a asp-controller="Home"
-       asp-action="Index"
-       asp-route-id="0"
-       class="categoria-btn @(Model.CategoriaSeleccionada == 0 ? "active" : "")">
-        Todos
-    </a>
-
     <div class="categorias">
+        <a asp-controller="Home"
+           asp-action="Index"
+           asp-route-id="0"
+           class="categoria-btn @(Model.CategoriaSeleccionada == 0 ? "active" : "")">
+            Todos
+        </a>
+
         @foreach (var categoria in Model.ListaCategorias)
         {
             <a asp-controller="Home"
@@ -30,7 +30,6 @@
                 @categoria.Nombre
             </a>
         }
-
     </div>
 </div>
 
@@ -46,6 +45,5 @@
                 <a href="~/Home/Detalles/@(pastel.Id)" class="btn">Ver detalles</a>
             </div>
         }
-
     </div>
 </div>

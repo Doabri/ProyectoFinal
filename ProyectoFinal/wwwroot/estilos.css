@@ -1,18 +1,16 @@
-﻿/* --- ESTILOS BASE MEJORADOS --- */
-body {
+﻿body {
     margin: 0;
     padding: 0;
-    background-color: #F8F8F8; /* Blanco hueso */
-    color: #2B2B2B; /* Gris antracita */
+    background-color: #F8F8F8; 
+    color: #2B2B2B; 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* --- HEADER MEJORADO --- */
 header {
     background-color: #FFFFFF;
     padding: 15px 0;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-bottom: 3px solid #F9D5E5; /* Rosa pastel */
+    border-bottom: 3px solid #F9D5E5; 
 }
 
 .header-content {
@@ -27,7 +25,7 @@ header {
 .logo {
     font-size: 28px;
     font-weight: bold;
-    color: #6B7A8F; /* Azul grisáceo */
+    color: #6B7A8F; 
     text-decoration: none;
 }
 
@@ -57,7 +55,6 @@ nav ul {
             }
 
 
-/* --- MAIN CONTENT --- */
 main {
     width: 90%;
     max-width: 1200px;
@@ -65,7 +62,6 @@ main {
     min-height: 60vh;
 }
 
-/* --- HERO TITLE MEJORADO --- */
 .hero-titulo {
     background-image: url('monitor.png');
     background-size: cover;
@@ -102,7 +98,6 @@ main {
         z-index: 1;
     }
 
-/* --- FILTROS MEJORADOS --- */
 .filtros {
     background-color: white;
     padding: 20px;
@@ -134,6 +129,8 @@ main {
     cursor: pointer;
     transition: all 0.3s;
     font-weight: 500;
+    text-decoration: none;
+    color: #2B2B2B; 
 }
 
     .categoria-btn.active,
@@ -142,7 +139,6 @@ main {
         transform: translateY(-2px);
     }
 
-/* --- CATÁLOGO CON GRID (APRENDIDO EN PROYECTOS ANTERIORES) --- */
 .catalogo {
     margin-bottom: 40px;
 }
@@ -199,9 +195,8 @@ main {
         text-align: center;
     }
 
-/* --- BOTONES MEJORADOS --- */
 .btn {
-    background-color: #F9D5E5; /* Rosa pastel */
+    background-color: #F9D5E5; 
     color: #2B2B2B;
     padding: 12px 25px;
     border: none;
@@ -215,12 +210,12 @@ main {
 }
 
     .btn:hover {
-        background-color: #FEE9A8; /* Amarillo crema */
+        background-color: #FEE9A8; 
         transform: translateY(-2px);
     }
 
 .btn-primary {
-    background-color: #6B7A8F; /* Azul grisáceo */
+    background-color: #6B7A8F; 
     color: white;
 }
 
@@ -228,7 +223,6 @@ main {
         background-color: #5a687a;
     }
 
-/* --- DETALLE DE PRODUCTO MEJORADO --- */
 .detalle-producto {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -289,7 +283,6 @@ main {
     margin-top: 30px;
 }
 
-/* --- CARRITO MEJORADO --- */
 .carrito-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -405,7 +398,6 @@ main {
     gap: 10px;
 }
 
-/* --- CHECKOUT MEJORADO --- */
 .checkout-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -482,9 +474,8 @@ main {
     padding: 15px;
 }
 
-/* --- FOOTER MEJORADO --- */
 footer {
-    background-color: #6B7A8F; /* Azul grisáceo */
+    background-color: #6B7A8F; 
     color: white;
     text-align: center;
     padding: 25px 0;
@@ -497,7 +488,6 @@ footer {
     margin: 0 auto;
 }
 
-/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
     .detalle-producto {
         grid-template-columns: 1fr;

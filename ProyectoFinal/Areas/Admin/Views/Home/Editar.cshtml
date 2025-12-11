@@ -13,38 +13,45 @@
 
     <form class="admin-form" method="post" asp-action="Editar" asp-controller="Home" enctype="multipart/form-data">
 
-        <input type="hidden" asp-for="@Model.EditarPastel.Id"/>
+        <input type="hidden" asp-for="EditarPastel.Id"/>
 
         <section class="form-group">
             <label for="nombre" class="form-label">Nombre del Producto</label>
-            <input asp-for="EditarPastel.Nombre" type="text" id="nombre" class="form-input" value="@Model.EditarPastel.Nombre" required>
+            <input asp-for="EditarPastel.Nombre" type="text" id="nombre" class="form-input" required>
         </section>
 
         <section class="form-group">
             <label for="categoria" class="form-label">Categoría</label>
-            <select asp-for="EditarPastel.PastelCategoria" id="categoria" class="form-select" required>
-                @foreach (var cat in Model.Categorias)
-                {
-                    <option value="@cat.Id" selected>@cat.Nombre</option>
-                }
+            <select asp-for="EditarPastel.PastelCategoria"
+                    asp-items="@(new SelectList(Model.Categorias, "Id", "Nombre", Model.EditarPastel.PastelCategoria))"
+                    id="categoria"
+                    class="form-select"
+                    required>
+                <option value="">Seleccionar categoría...</option>
             </select>
+
         </section>
 
         <section class="form-group">
             <label for="precio" class="form-label">Precio ($)</label>
-            <input asp-for="EditarPastel.Precio" type="number" id="precio" class="form-input" value="@Model.EditarPastel.Precio" step="0.01" min="0.1" required>
+            <input asp-for="EditarPastel.Precio" type="number" id="precio" class="form-input" step="0.01" min="0.1" required>
         </section>
 
         <section class="form-group">
             <label for="descripcion" class="form-label">Descripción</label>
-            <textarea asp-for="EditarPastel.Descripcion" id="descripcion" class="form-textarea" required>@Model.EditarPastel.Descripcion</textarea>
+            <textarea asp-for="EditarPastel.Descripcion" id="descripcion" class="form-textarea" required></textarea>
+        </section>
+
+        <section class="form-group">
+            <label for="ingredientes" class="form-label">Ingredientes</label>
+            <textarea asp-for="EditarPastel.Ingredientes" id="ingredientes" class="form-textarea" placeholder="Ej: Harina, Huevo, Azúcar, Chocolate"></textarea>
+            <small style="color: var(--color-texto); font-size: 0.9rem;">
+                Separa los ingredientes con comas (,)
+            </small>
         </section>
 
         <section class="form-group">
             <label for="imagen" class="form-label">Imagen Actual</label>
-            <div style="margin-bottom: 0.5rem;">
-                <img src="pastel-chocolate.jpg" alt="Pastel de Chocolate" class="image-preview">
-            </div>
             <input asp-for="EditarPastel.Imagen" type="file" id="imagen" class="form-file" accept="image/.jpg">
             <small style="color: var(--color-texto); font-size: 0.9rem;">Dejar vacío para mantener la imagen actual</small>
         </section>
@@ -53,5 +60,6 @@
             <button type="submit" class="btn btn-success">Guardar Cambios</button>
             <a href="~/Admin/Home/Index" class="btn btn-secondary">Cancelar</a>
         </section>
+
     </form>
 </article>

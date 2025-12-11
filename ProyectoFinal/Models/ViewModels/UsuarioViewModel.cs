@@ -71,37 +71,16 @@ namespace ProyectoFinal.Models.ViewModels
 
         public class CheckOutViewModel
         {
-            [Required(ErrorMessage = "El nombre es obligatorio")]
-            [StringLength(100)]
-            public string NombreCliente { get; set; } = null!;
-
-            [Required(ErrorMessage = "El correo es obligatorio")]
-            [EmailAddress(ErrorMessage = "Correo no válido")]
-            public string Correo { get; set; } = null!;
-
-            [Required(ErrorMessage = "El teléfono es obligatorio")]
-            [StringLength(15, MinimumLength = 8, ErrorMessage = "Teléfono inválido")]
-            public string Telefono { get; set; } = null!;
-
+            public string? NombreCliente { get; set; }
+            public string? Correo { get; set; }
+            public string? Telefono { get; set; }
             public string? Instrucciones { get; set; }
-
-            [MinLength(1, ErrorMessage = "El carrito está vacío")]
-            public IEnumerable<ResumenCarritoModel> ListaCarritoPedidos { get; set; }
-                = new List<ResumenCarritoModel>();
 
             public decimal Subtotal { get; set; }
             public decimal Envio { get; set; }
             public decimal Total { get; set; }
-        }
 
-        public class ResumenCarritoModel
-        {
-            public int IdPastel { get; set; }
-            public int IdTamano { get; set; }
-            public string? Nombre { get; set; }
-            public int Cantidad { get; set; }
-            public decimal PrecioUnitario { get; set; }
+            public List<PedidoPastelModel> ListaCarritoPedidos { get; set; } = new();
         }
-
     }
 }

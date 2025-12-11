@@ -113,46 +113,38 @@ namespace ProyectoFinal.Services
 
         public UsuarioViewModel.CarritoViewModel GetCarrito()
         {
-            var lista = sessionService.GetCarrito();
+            var carrito = sessionService.GetCarrito();
 
-            var subtotal = lista.Sum(s => s.Subtotal);
+            var subtotal = carrito.Sum(x => x.Subtotal);
             var envio = 80m;
             var total = subtotal + envio;
 
             return new UsuarioViewModel.CarritoViewModel
             {
-                ListaPedidos = lista,
-                Subtotal = subtotal,
-                Envio = envio,
-                Total = total,
-            };
-        }
-
-        public UsuarioViewModel.CheckOutViewModel GetCheckOut()
-        {
-            var carrito = sessionService.GetCarrito();
-
-            var subtotal = carrito.Sum(p => p.Subtotal);
-            var envio = 80m;
-            var total = subtotal + envio;
-
-            return new UsuarioViewModel.CheckOutViewModel
-            {
-                ListaCarritoPedidos = carrito.Select(p => new ResumenCarritoModel
-                {
-                    IdPastel = p.IdPastel,
-                    IdTamano = tamanoRepository.GetAll().First(t => t.Nombre == p.Tamano).Id,
-                    Nombre = p.Nombre,
-                    Cantidad = p.Cantidad,
-                    PrecioUnitario = p.PrecioUnitario
-                }),
-
+                ListaPedidos = carrito,
                 Subtotal = subtotal,
                 Envio = envio,
                 Total = total
             };
         }
 
+
+        public UsuarioViewModel.CheckOutViewModel GetCheckOut()
+        {
+            var carrito = sessionService.GetCarrito();
+
+            var subtotal = carrito.Sum(x => x.Subtotal);
+            var envio = 80m;
+            var total = subtotal + envio;
+
+            return new UsuarioViewModel.CheckOutViewModel
+            {
+                ListaCarritoPedidos = carrito,
+                Subtotal = subtotal,
+                Envio = envio,
+                Total = total
+            };
+        }
 
         public int RegistrarPedido(UsuarioViewModel.CheckOutViewModel model)
         {
@@ -162,7 +154,7 @@ namespace ProyectoFinal.Services
                 Correo = model.Correo,
                 Telefono = model.Telefono,
                 Instrucciones = model.Instrucciones,
-                Total = model.Total,
+                Total = model.Total
             };
 
             pedidoRepository.Insert(pedido);
@@ -182,6 +174,7 @@ namespace ProyectoFinal.Services
             sessionService.Limpiar();
             return pedido.Id;
         }
+
 
         public void Eliminar(Guid carritoId)
         {

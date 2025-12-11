@@ -70,10 +70,13 @@ namespace ProyectoFinal.Controllers
             return View(vm);
         }
 
+
         [HttpPost]
         public IActionResult FinalizarPedido(UsuarioViewModel.CheckOutViewModel model)
         {
-            if (model.ListaCarritoPedidos == null || !model.ListaCarritoPedidos.Any())
+            var carrito = usuarioService.GetCarrito();
+
+            if (carrito.ListaPedidos == null || !carrito.ListaPedidos.Any())
             {
                 ModelState.AddModelError("", "Tu carrito está vacío.");
 
@@ -83,7 +86,7 @@ namespace ProyectoFinal.Controllers
                 vm.Telefono = model.Telefono;
                 vm.Instrucciones = model.Instrucciones;
 
-                return View("CheckOut", vm);
+                return View("Checkout", vm);
             }
 
             if (!ModelState.IsValid)
@@ -94,13 +97,12 @@ namespace ProyectoFinal.Controllers
                 vm.Telefono = model.Telefono;
                 vm.Instrucciones = model.Instrucciones;
 
-                return View("CheckOut", vm);
+                return View("Checkout", vm);
             }
 
             var pedidoId = usuarioService.RegistrarPedido(model);
-            return RedirectToAction("Confirmacion", new { id = pedidoId });
+            return RedirectToAction("ConfirmacionPedido", new { id = pedidoId });
         }
-
 
         public IActionResult ConfirmacionPedido(int id)
         {

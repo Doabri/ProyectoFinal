@@ -20,7 +20,10 @@ builder.Services.AddDbContext<ProyectoPasteleriaContext>();
 builder.Services.AddScoped(typeof(Repository<>), typeof(Repository<>));
 builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<UsuarioService>();
+
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<SessionService>();
+
 
 //esto es para la session 
 builder.Services.AddDistributedMemoryCache();
@@ -39,8 +42,9 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 
-app.UseRouting();
 app.UseSession();
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -402,4 +402,20 @@ body.login-page {
     body.login-page .background-image img {
         object-position: center;
     }
+    #ingredientes {
+        font-family: 'Segoe UI', monospace;
+        line-height: 1.8;
+        white-space: pre;
+        overflow-wrap: normal;
+        overflow-x: auto;
+    }
+
+    .form-hint {
+        display: block;
+        margin-top: 0.25rem;
+        color: var(--color-contraste);
+        font-size: 0.875rem;
+        opacity: 0.8;
+    }
+
 }

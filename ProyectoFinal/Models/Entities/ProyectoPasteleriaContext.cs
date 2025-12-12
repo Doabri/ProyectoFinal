@@ -61,7 +61,7 @@ public partial class ProyectoPasteleriaContext : DbContext
 
             entity.HasOne(d => d.IdPastelNavigation).WithMany(p => p.Ingrediente)
                 .HasForeignKey(d => d.IdPastel)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("ingrediente_ibfk_1");
         });
 
